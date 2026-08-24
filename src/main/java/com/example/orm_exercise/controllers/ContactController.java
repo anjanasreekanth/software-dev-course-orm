@@ -26,8 +26,17 @@ public class ContactController {
     }
 
     @PostMapping
+    // public Contact createContact(@RequestBody Contact contact) {
+     //   return contactRepository.save(contact);
+
     public Contact createContact(@RequestBody Contact contact) {
+        if (contact.getAddresses() != null) {
+            for (var address : contact.getAddresses()) {
+                address.setContact(contact);
+            }
+        }
         return contactRepository.save(contact);
+
     }
 
     @PutMapping("/{id}")
